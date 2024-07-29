@@ -20,8 +20,25 @@
   } @ inputs: let
     forEachSystem = nixpkgs.lib.genAttrs (import systems);
   in {
-    packages = forEachSystem (system: {
+    packages = forEachSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+
+      gmmk2 = pkgs.stdenv.mkDeriviation {
+        name = "gmmk2";
+        src = ./.;
+
+        buildInputs = with pkgs; [qmk];
+
+        buildPhase = ''
+          ${pkgs.qmk}/bin/qmk compile -kb gmmk/gmmk2/p96/ansi -km default
+        '';
+        installPhase = ''
+          ${pkgs.qmk}/bin/qmk flash -kb gmmk/gmmk2/p96/ansi -km default
+        '';
+      };
+    in {
       devenv-up = self.devShells.${system}.default.config.procfileScript;
+      default = gmmk2;
     });
 
     devShells =
