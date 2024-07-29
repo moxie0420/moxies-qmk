@@ -1,0 +1,52 @@
+{
+    "folders": [
+        {
+            "name": "Config",
+            "path": "./"
+        },
+        {
+            "name": "gmmk",
+            "path": "./keyboards/gmmk"
+        },
+        {
+            "name": "QMK",
+            "path": "quantum"
+        },
+        {
+            "name": "Layouts",
+            "path": "./layouts"
+        },
+        {
+            "name": "Drivers",
+            "path": "./drivers"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            ".clang-format": true,
+            ".editorconfig": true,
+            ".envrc": true,
+
+            "Doxyfile": true,
+            "doxygen-todo": true,
+            "flake.lock": true,
+
+
+            ".devenv": true,
+            ".direnv": true,
+            "builddefs": true,
+            "keyboards": true,
+            "data": true,
+            "docs": true,
+            "drivers": true,
+            "layouts": true,
+            "lib": true,
+            "platforms": true,
+            "quantum": true,
+            "tests": true,
+            "tmk_core": true,
+            "users": true,
+            "util": true
+        }
+    }
+}

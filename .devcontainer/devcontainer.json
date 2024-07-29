@@ -10,20 +10,19 @@
         "USER_GID": "100"
       }
     },
-  
+
     // run arguments passed to docker
     "runArgs": ["--security-opt", "label=disable"],
-  
     "containerEnv": {
       // extensions to preload before other extensions
       "PRELOAD_EXTENSIONS": "mkhl.direnv"
     },
-  
+
     // disable command overriding and updating remote user ID
     "overrideCommand": false,
     "userEnvProbe": "loginShell",
     "updateRemoteUserUID": false,
-  
+
     // Add the IDs of extensions you want installed when the container is created.
     "customizations": {
       "codespaces": {},
@@ -38,9 +37,8 @@
         ]
       }
     },
-  
+
     "features": {
       "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     }
   }
-  
