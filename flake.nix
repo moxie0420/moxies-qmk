@@ -23,7 +23,7 @@
     packages = forEachSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
 
-      gmmk2 = pkgs.stdenv.mkDeriviation {
+      gmmk2 = pkgs.stdenv.mkDerivation rec {
         name = "gmmk2";
         src = ./.;
 
@@ -33,7 +33,8 @@
           ${pkgs.qmk}/bin/qmk compile -kb gmmk/gmmk2/p96/ansi -km default
         '';
         installPhase = ''
-          ${pkgs.qmk}/bin/qmk flash -kb gmmk/gmmk2/p96/ansi -km default
+          mkdir $out
+          mv gmmk_gmmk2_p96_ansi_default.bin $out
         '';
       };
     in {
@@ -51,7 +52,25 @@
           modules = [
             {
               # https://devenv.sh/reference/options/
-              packages = [pkgs.qmk];
+              packages = with pkgs; [qmk alejandra];
+
+              scripts = {
+                build-gmmk-Pro.exec = ''
+                  ${pkgs.qmk}/bin/qmk compile -kb gmmk/pro/rev1/ansi -km default
+                '';
+                build-gmmk-Pro-v2.exec = ''
+                  ${pkgs.qmk}/bin/qmk compile -kb gmmk/pro/rev2/ansi -km default
+                '';
+                build-gmmk2.exec = ''
+                  ${pkgs.qmk}/bin/qmk compile -kb gmmk/gmmk2/p96/ansi -km default
+                '';
+                build.exec = ''
+                  build-gmmk2
+                '';
+                clean.exec = ''
+                  ${pkgs.qmk}/bin/qmk clean
+                '';
+              };
             }
           ];
         };
