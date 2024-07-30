@@ -52,6 +52,15 @@
             {
               # https://devenv.sh/reference/options/
               packages = [pkgs.qmk];
+
+              scripts = {
+                build.exec = ''
+                  ${pkgs.qmk}/bin/qmk compile -kb gmmk/gmmk2/p96/ansi -km default
+                '';
+                flash.exec = ''
+                  ${pkgs.qmk}/bin/qmk flash -kb gmmk/gmmk2/p96/ansi -km default
+                '';
+              };
             }
           ];
         };
